@@ -1,6 +1,7 @@
 const express = require('express');
 
 const adoptionApplicationRoutes = require('./routes/adoptionApplication.routes');
+const petRoutes = require('./routes/pet.routes');
 
 const app = express();
 
@@ -9,6 +10,9 @@ app.use(express.json());
 
 // Base route for adoption applications
 app.use('/api/adoption-applications', adoptionApplicationRoutes);
+
+// Base route for pets
+app.use('/api/pets', petRoutes);
 
 // 404 handler for unknown routes
 app.use((req, res) => {
