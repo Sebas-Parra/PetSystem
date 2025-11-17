@@ -20,5 +20,14 @@
     "eslint": "^9.39.1",
     "jest": "^30.2.0",
     "supertest": "^7.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sebas-Parra/PetSystem.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sebas-Parra/PetSystem/issues"
+  },
+  "homepage": "https://github.com/Sebas-Parra/PetSystem#readme"
 }

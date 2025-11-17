@@ -28,4 +28,42 @@ function createAdoptionApplication(req, res) {
     res.status(201).json(newApplication);
 }
 
-module.exports = { getAllAdoptionApplications, createAdoptionApplication };
+//update a adoption application
+function updateAdoptionApplication(req, res) {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid ID' });
+    }
+
+    const { applicantdate, statusAdoption, comments } = req.body;
+    if (!applicantdate || !statusAdoption || !comments) {
+        return res.status(400).json({ message: 'applicantdate, statusAdoption and comments are required' });
+    }
+
+    const appIndex = adoptionApplications.findIndex(app => app.id === id);
+    if (appIndex === -1) {
+        return res.status(404).json({ message: 'Adoption application not found' });
+    }
+
+    adoptionApplications[appIndex] = { id, applicantdate, statusAdoption, comments };
+    res.json(adoptionApplications[appIndex]);
+}
+
+//delete adoption application by id (not used in routes but could be useful)
+function deleteAdoptionApplication(req, res) {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid ID' });
+    }
+
+    const appIndex = adoptionApplications.findIndex(app => app.id === id);
+    if (appIndex === -1) {
+        return res.status(404).json({ message: 'Adoption application not found' });
+    }
+
+    adoptionApplications.splice(appIndex, 1);
+    res.status(204).send();
+}
+
+
+module.exports = { getAllAdoptionApplications, createAdoptionApplication, updateAdoptionApplication, deleteAdoptionApplication };
