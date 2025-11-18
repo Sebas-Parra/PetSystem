@@ -15,6 +15,7 @@ app.use('/api/adoption-applications', adoptionApplicationRoutes);
 
 // Base route for pets
 app.use('/api/pets', petRoutes);
+// Base route for shelters
 app.use('/api/shelter', shelterRoutes);
 
 //Base rpoute for adopter

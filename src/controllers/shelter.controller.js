@@ -1,6 +1,3 @@
-// src/controllers/shelter.controller.js
-
-// "Base de datos" en memoria
 const shelters = [];
 let nextId = 1;
 
@@ -12,7 +9,6 @@ function reset() {
 function createShelter(req, res) {
   const data = req.body;
 
-  // Validación mínima
   if (!data || !data.nombre) {
     return res.status(400).json({ message: 'Nombre es requerido' });
   }

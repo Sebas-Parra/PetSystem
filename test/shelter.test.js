@@ -70,8 +70,6 @@ describe('Shelter CRUD - separated tests', () => {
     await request(app).get(`/api/shelter/${id}`).expect(404);
   });
 
-  // ------ TESTS NEGATIVOS PARA COBERTURA COMPLETA ------
-
   test('POST /api/shelter fails when nombre missing', async () => {
     await request(app).post('/api/shelter').send({}).expect(400);
   });
