@@ -65,5 +65,20 @@ function deleteAdoptionApplication(req, res) {
     res.status(204).send();
 }
 
+// Get adoption application by ID
+function getAdoptionApplicationById(req, res) {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid ID' });
+    }
 
-module.exports = { getAllAdoptionApplications, createAdoptionApplication, updateAdoptionApplication, deleteAdoptionApplication };
+    const application = adoptionApplications.find(app => app.id === id);
+    if (!application) {
+        return res.status(404).json({ message: 'Adoption application not found' });
+    }
+
+    res.json(application);
+}
+
+
+module.exports = { getAllAdoptionApplications, createAdoptionApplication, updateAdoptionApplication, deleteAdoptionApplication, getAdoptionApplicationById };

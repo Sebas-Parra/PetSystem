@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllAdoptionApplications, createAdoptionApplication, updateAdoptionApplication, deleteAdoptionApplication } = require('../controllers/adoptionApplication.controller');
+const { getAllAdoptionApplications, createAdoptionApplication, updateAdoptionApplication, deleteAdoptionApplication, getAdoptionApplicationById } = require('../controllers/adoptionApplication.controller');
 
 const router = express.Router();
 
@@ -14,6 +14,9 @@ router.put('/:id', updateAdoptionApplication);
 
 // DELETE Route to delete an adoption application
 router.delete('/:id', deleteAdoptionApplication);
+
+// GET Route to get an adoption application by ID
+router.get('/:id', getAdoptionApplicationById);
 
 module.exports = router;
 

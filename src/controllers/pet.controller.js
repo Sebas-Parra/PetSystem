@@ -31,17 +31,25 @@ function getAllPets(req, res) {
 
 function getPetById(req, res) {
 	const id = Number(req.params.id);
-	if (Number.isNaN(id)) return res.status(400).json({ message: 'ID inválido' });
+	if (Number.isNaN(id)) {
+		return res.status(400).json({ message: 'ID inválido' });
+	}
 	const pet = pets.find(p => p.id === id) || null;
-	if (!pet) return res.status(404).json({ message: 'Mascota no encontrada' });
+	if (!pet) { 
+		return res.status(404).json({ message: 'Mascota no encontrada' });
+	}
 	return res.json(pet);
 }
 
 function updatePet(req, res) {
 	const id = Number(req.params.id);
-	if (Number.isNaN(id)) return res.status(400).json({ message: 'ID inválido' });
+	if (Number.isNaN(id)) {
+		return res.status(400).json({ message: 'ID inválido' });
+	}
 	const pet = pets.find(p => p.id === id) || null;
-	if (!pet) return res.status(404).json({ message: 'Mascota no encontrada' });
+	if (!pet) { 
+		return res.status(404).json({ message: 'Mascota no encontrada' });
+	}
 	const fields = ['nombre', 'edad', 'especie', 'raza', 'sexo', 'estadoSalud'];
 	fields.forEach(f => {
 		if (Object.prototype.hasOwnProperty.call(req.body, f)) {
@@ -53,9 +61,13 @@ function updatePet(req, res) {
 
 function deletePet(req, res) {
 	const id = Number(req.params.id);
-	if (Number.isNaN(id)) return res.status(400).json({ message: 'ID inválido' });
+	if (Number.isNaN(id)) {
+		return res.status(400).json({ message: 'ID inválido' });
+	}
 	const index = pets.findIndex(p => p.id === id);
-	if (index === -1) return res.status(404).json({ message: 'Mascota no encontrada' });
+	if (index === -1) {
+		return res.status(404).json({ message: 'Mascota no encontrada' });
+	}
 	pets.splice(index, 1);
 	return res.status(204).send();
 }
