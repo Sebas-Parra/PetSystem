@@ -44,3 +44,43 @@ describe('Pets CRUD - separated tests', () => {
     await request(app).get(`/api/pets/${id}`).expect(404);
   });
 });
+
+describe('Pets error and edge cases', () => {
+  beforeEach(() => {
+    if (typeof petController.reset === 'function') petController.reset();
+  });
+
+  test('POST /api/pets without nombre returns 400', async () => {
+    await request(app).post('/api/pets').send({ edad: 2 }).expect(400);
+  });
+
+  test('GET /api/pets/:id with invalid id format returns 400', async () => {
+    await request(app).get('/api/pets/abc').expect(400);
+  });
+
+  test('GET /api/pets/:id for non-existent id returns 404', async () => {
+    await request(app).get('/api/pets/999').expect(404);
+  });
+
+  test('PUT /api/pets/:id with invalid id format returns 400', async () => {
+    await request(app).put('/api/pets/xyz').send({ nombre: 'X' }).expect(400);
+  });
+
+  test('PUT /api/pets/:id for non-existent id returns 404', async () => {
+    await request(app).put('/api/pets/1234').send({ nombre: 'X' }).expect(404);
+  });
+
+  test('DELETE /api/pets/:id with invalid id returns 400', async () => {
+    await request(app).delete('/api/pets/nope').expect(400);
+  });
+
+  test('DELETE /api/pets/:id for non-existent id returns 404', async () => {
+    await request(app).delete('/api/pets/4321').expect(404);
+  });
+
+  test('GET /api/pets returns empty array when none exist', async () => {
+    const res = await request(app).get('/api/pets').expect(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(0);
+  });
+});
