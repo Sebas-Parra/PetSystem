@@ -69,4 +69,34 @@ describe('Shelter CRUD - separated tests', () => {
     await request(app).delete(`/api/shelter/${id}`).expect(204);
     await request(app).get(`/api/shelter/${id}`).expect(404);
   });
+
+  // ------ TESTS NEGATIVOS PARA COBERTURA COMPLETA ------
+
+  test('POST /api/shelter fails when nombre missing', async () => {
+    await request(app).post('/api/shelter').send({}).expect(400);
+  });
+
+  test('GET /api/shelter/:id fails with invalid ID', async () => {
+    await request(app).get('/api/shelter/abc').expect(400);
+  });
+
+  test('GET /api/shelter/:id fails when shelter does not exist', async () => {
+    await request(app).get('/api/shelter/9999').expect(404);
+  });
+
+  test('PUT /api/shelter/:id fails with invalid ID', async () => {
+    await request(app).put('/api/shelter/abc').send({ nombre: 'x' }).expect(400);
+  });
+
+  test('PUT /api/shelter/:id fails when shelter not found', async () => {
+    await request(app).put('/api/shelter/9999').send({ nombre: 'x' }).expect(404);
+  });
+
+  test('DELETE /api/shelter/:id fails with invalid ID', async () => {
+    await request(app).delete('/api/shelter/abc').expect(400);
+  });
+
+  test('DELETE /api/shelter/:id fails when shelter not found', async () => {
+    await request(app).delete('/api/shelter/9999').expect(404);
+  });
 });
