@@ -12,6 +12,10 @@ function createPet(req, res) {
 	if (!data || !data.nombre) {
 		return res.status(400).json({ message: 'Nombre es requerido' });
 	}
+
+	if (!data || !data.especie) {
+		return res.status(400).json({ message: 'Especie es requerida' });
+	}
 	const pet = {
 		id: nextId++,
 		nombre: data.nombre || null,
